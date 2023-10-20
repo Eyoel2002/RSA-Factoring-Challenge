@@ -1,33 +1,33 @@
-#include "factor.h"
+#include <stdio.h>
 
-/**
- * main - main function
- *
- *
- * Return: void
+/*
+ * find_divisor - finds the smallest divisor of a given number.
+ * @num: a number to find the smallest divisor for.
+ * Return: smallest divisor if found, or 0 if the number is prime.
  */
-int main(int argc, char *argv[])
+int find_divisor(long int num)
 {
-	FILE *fptr;
-	size_t count;
-	ssize_t line;
-	char *buffer = NULL;
+	long int factor;
 
+	if (num % 2 == 0)
+	{
+		printf("%lu=%lu*%i\n", num, num / 2, 2);
+		return 0;
+	}
 
-	if (argc != 2)
+	factor = 3;
+	while (factor * factor <= num)
 	{
-		fprintf(stderr, "Usage: factor <filename>\n");
-		exit(EXIT_FAILURE);
+		if (num % factor == 0)
+		{
+			printf("%lu=%lu*%lu\n", num, num / factor, factor);
+			return 0;
+		}
+		else
+			factor += 2;
 	}
-	fptr = fopen(argv[1], "r");
-	if (fptr == NULL)
-	{
-		fprintf(stderr, "Error: can't open file %s\n", argv[1]);
-		exit(EXIT_FAILURE);
-	}
-	while((line = getline(&buffer, &count, fptr)) != -1)
-	{
-		factorize(buffer);
-	}
-return (0);
+
+	printf("%lu=%lu*%i\n", num, num, 1);
+
+	return 0;
 }
